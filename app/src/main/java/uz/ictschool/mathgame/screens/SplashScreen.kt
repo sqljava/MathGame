@@ -14,8 +14,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.delay
 import uz.ictschool.mathgame.R
+import uz.ictschool.mathgame.navigation.NavGraph
 
 
 @Composable
@@ -23,7 +25,7 @@ fun SplashScreen(navController: NavHostController){
 
     LaunchedEffect(key1 = true){
         delay(2000)
-        navController.navigate("")
+        navController.navigate("main_menu_screen")
 
     }
 
@@ -40,8 +42,10 @@ fun SplashScreen(navController: NavHostController){
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun TestSplash(){
-//    SplashScreen()
-//}
+@Preview(showBackground = true)
+@Composable
+fun TestSplash(){
+    val navController = rememberNavController()
+    NavGraph(navController = navController)
+    SplashScreen(navController)
+}
