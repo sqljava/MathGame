@@ -13,6 +13,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,10 +29,12 @@ import uz.ictschool.mathgame.ui.theme.MathGameTheme
 class MainMenuActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
         setContent {
             MathGameTheme {
-                // A surface container using the 'background' color from the theme
+//                var btnClicked by remember{ mutableStateOf(false) }
+//                if (btnClicked){
+//                    startActivity(Intent(this@MainMenuActivity, MainActivity().javaClass))
+//                }
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -48,7 +54,8 @@ fun MenuPreview(){
         contentAlignment = Alignment.Center
     ){
 
-        Button(onClick = { /*TODO*/ },
+        Button(onClick = {
+                         },
             colors = ButtonDefaults
                 .buttonColors(containerColor = Color.Gray),
 
