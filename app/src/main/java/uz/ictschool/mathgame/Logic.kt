@@ -11,7 +11,7 @@ class Logic() {
         var answer = signs.random()
 
         if (answer == "/") {
-            while (num1 % num2 != 0) {
+            while (num1 % num2 != 0 || num2 == 1) {
                 num1 = (1 until 9).random()
                 num2 = (1 until 9).random()
             }

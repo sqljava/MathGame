@@ -28,16 +28,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import uz.ictschool.mathgame.Logic
 import uz.ictschool.mathgame.R
+import uz.ictschool.mathgame.model.Problem
 
 private var ans = ""
-
-
 
 @Preview(showBackground = true)
 @Composable
 fun GameScreen(){
 
-    var problem = Logic().random(10)
+     var problem = btnClicked("a")
+
+    Log.d("TAG", problem.question)
 
     var question by remember {
         mutableStateOf(problem.question)
@@ -48,7 +49,6 @@ fun GameScreen(){
     }
 
     ans = answer
-
 
 
     Box(modifier = Modifier
@@ -65,6 +65,15 @@ fun GameScreen(){
         Text(text = question,
             fontSize = 40.sp)
 
+//        Box(modifier = Modifier
+//            .fillMaxSize()
+//            .padding(20.dp),
+//            contentAlignment = Alignment.TopStart
+//        ){
+//            Text(text = "Score")
+//
+//        }
+
 
         Column(modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -77,7 +86,10 @@ fun GameScreen(){
                 .padding(horizontal = 50.dp, vertical = 20.dp),
                 horizontalArrangement = Arrangement.Center) {
                 Button(onClick = {
-                                 btnClicked("+")
+                    var p = btnClicked("+")
+                    question = p.question
+                    answer = p.answer
+
                 },
                     modifier = Modifier.weight(1f)) {
                     Text(text = "+",
@@ -86,7 +98,10 @@ fun GameScreen(){
                 }
                 Spacer(modifier = Modifier.width(50.dp))
 
-                Button(onClick = { btnClicked("-") },
+                Button(onClick = {
+                    var p = btnClicked("-")
+                    question = p.question
+                    answer = p.answer },
                     modifier = Modifier.weight(1f)) {
                     Text(text = "-",
                         fontSize = 25.sp)
@@ -97,7 +112,10 @@ fun GameScreen(){
 
             Row(modifier = Modifier
                 .padding(horizontal = 50.dp, vertical = 20.dp)) {
-                Button(onClick = { btnClicked("*") },
+                Button(onClick = {
+                    var p = btnClicked("*")
+                    question = p.question
+                    answer = p.answer },
                     modifier = Modifier.weight(1f)) {
                     Text(text = "*",
                         fontSize = 25.sp)
@@ -105,7 +123,10 @@ fun GameScreen(){
                 }
                 Spacer(modifier = Modifier.width(50.dp))
 
-                Button(onClick = { btnClicked("/") },
+                Button(onClick = {
+                    var p = btnClicked("/")
+                    question = p.question
+                    answer = p.answer },
                     modifier = Modifier.weight(1f)) {
                     Text(text = "/",
                         fontSize = 25.sp)
@@ -116,15 +137,22 @@ fun GameScreen(){
     }
 }
 
-fun btnClicked(btnSign: String){
+fun btnClicked(btnSign: String):Problem{
 
     if(btnSign == ans){
         Log.d("TAG", "Togri")
+    }else if (btnSign == "a"){
+
     }else{
         Log.d("TAG", "Xato")
 
     }
 
-    //problem = Logic().random(10)
+    var problem = Logic().random(10)
+
+    Log.d("TAG", problem.question)
+
+
+    return problem
 
 }
