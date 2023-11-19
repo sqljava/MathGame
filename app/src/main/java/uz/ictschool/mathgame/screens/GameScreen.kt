@@ -1,6 +1,7 @@
 package uz.ictschool.mathgame.screens
 
 import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
@@ -19,48 +21,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import uz.ictschool.mathgame.Logic
+import uz.ictschool.mathgame.R
 
-private var randomNumber = 0
-
-
-
-
-
-
-
-fun random():String{
-    randomNumber = (1 until 9).random()
-
-    var num1 = (1 until 9).random()
-    var num2 = (1 until 9).random()
-    var signs = listOf("+","-","*","/")
-    var answer = signs.random()
-
-    if (answer == "/"){
-        while (num1 % num2 != 0){
-            num1 = (1 until 9).random()
-            num2 = (1 until 9).random()
-        }
-    }
-
-     var question = "$num1 _ $num2 = ${calculate(num1, num2, answer)}"
-    return question
-}
-
-fun calculate(num1 : Int, num2: Int, sign: String): Int{
-    return when(sign){
-        "+"->num1 + num2
-        "-"->num1-num2
-        "*"->num1 * num2
-        "/"->num1 / num2
-        else -> {
-            5
-        }
-    }
-}
+private var ans = ""
 
 
 
@@ -68,15 +37,19 @@ fun calculate(num1 : Int, num2: Int, sign: String): Int{
 @Composable
 fun GameScreen(){
 
-    var num by remember {
-        mutableStateOf(0)
-    }
+    var problem = Logic().random(10)
 
     var question by remember {
-        mutableStateOf(random())
+        mutableStateOf(problem.question)
     }
 
-    random()
+    var answer by remember {
+        mutableStateOf(problem.answer)
+    }
+
+    ans = answer
+
+
 
     Box(modifier = Modifier
         .fillMaxSize(),
@@ -84,58 +57,74 @@ fun GameScreen(){
 
     ){
 
-        Column(modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(text = question,
-                fontSize = 20.sp)
+        Image(painter = painterResource(id = R.drawable.gamebg),
+            contentDescription = "null",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop)
 
-//            Button(onClick = {
-//                num = (1 until 9).random()
-//                randomNumber = num
-//                Log.d("TAG", "GameScreen: $randomNumber")
-//            },
-//                modifier = Modifier.padding(10.dp)) {
-//                Text(text = "random")
-//            }
+        Text(text = question,
+            fontSize = 40.sp)
 
 
+        Column(modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Bottom) {
+
+            Spacer(modifier = Modifier.height(50.dp))
 
             Row(modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 10.dp),
+                .padding(horizontal = 50.dp, vertical = 20.dp),
                 horizontalArrangement = Arrangement.Center) {
                 Button(onClick = {
-                    random()
-                    Log.d("TAG", "GameScreen: $randomNumber")
-                }) {
-                    Text(text = "+")
+                                 btnClicked("+")
+                },
+                    modifier = Modifier.weight(1f)) {
+                    Text(text = "+",
+                        fontSize = 25.sp)
 
                 }
-                Spacer(modifier = Modifier.width(30.dp))
+                Spacer(modifier = Modifier.width(50.dp))
 
-                Button(onClick = { /*TODO*/ }) {
-                    Text(text = "-")
+                Button(onClick = { btnClicked("-") },
+                    modifier = Modifier.weight(1f)) {
+                    Text(text = "-",
+                        fontSize = 25.sp)
 
                 }
 
             }
 
-            Row {
-                Button(onClick = { /*TODO*/ }) {
-                    Text(text = "*")
+            Row(modifier = Modifier
+                .padding(horizontal = 50.dp, vertical = 20.dp)) {
+                Button(onClick = { btnClicked("*") },
+                    modifier = Modifier.weight(1f)) {
+                    Text(text = "*",
+                        fontSize = 25.sp)
 
                 }
-                Spacer(modifier = Modifier.width(30.dp))
+                Spacer(modifier = Modifier.width(50.dp))
 
-                Button(onClick = { /*TODO*/ }) {
-                    Text(text = "/")
+                Button(onClick = { btnClicked("/") },
+                    modifier = Modifier.weight(1f)) {
+                    Text(text = "/",
+                        fontSize = 25.sp)
 
                 }
-
             }
         }
+    }
+}
 
+fun btnClicked(btnSign: String){
+
+    if(btnSign == ans){
+        Log.d("TAG", "Togri")
+    }else{
+        Log.d("TAG", "Xato")
 
     }
+
+    //problem = Logic().random(10)
 
 }
