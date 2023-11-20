@@ -34,11 +34,11 @@ import uz.ictschool.mathgame.model.Problem
 
 private var ans = ""
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
-fun GameScreen(){
+fun GameScreen(maxNum: Int){
 
-    var maxInt = 10
+    var maxInt = maxNum
 
      var problem = Logic().random(maxInt)
 

@@ -6,7 +6,6 @@ class Problem() {
     constructor(question: String, answer: String) : this() {
         this.question = question
         this.answer = answer
-
     }
 
 }

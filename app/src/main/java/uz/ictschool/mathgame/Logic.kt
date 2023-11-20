@@ -10,7 +10,7 @@ class Logic() {
         var num2 = (0 until maxInt).random()
         var answer = signs.random()
 
-        if (answer == "/") {
+        if (answer == "/" || num2 !=0) {
             while (num1 % num2 != 0 || num2 == 1) {
                 num1 = (1 until 9).random()
                 num2 = (1 until 9).random()
@@ -28,7 +28,7 @@ class Logic() {
 
         return when(ans){
         "+"->num1 + num2
-        "-"->num1-num2
+        "-"->num1 - num2
         "*"->num1 * num2
         "/"->num1 / num2
             else -> {
