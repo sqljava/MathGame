@@ -34,7 +34,13 @@ import uz.ictschool.mathgame.model.Problem
 
 private var ans = ""
 
-//@Preview(showBackground = true)
+@Preview(showBackground = true)
+@Composable
+fun testGame(){
+    GameScreen(maxNum = 50)
+}
+
+
 @Composable
 fun GameScreen(maxNum: Int){
 
@@ -209,14 +215,7 @@ fun GameScreen(maxNum: Int){
         }
     }
 
-
-
-
     //----------------------------------------------------------
-
-
-
-
 
     if (openDialog) {
         AlertDialog(
@@ -256,11 +255,7 @@ fun GameScreen(maxNum: Int){
 
 
     //-------------------------------------------------------------------
-
-
 }
-
-
 
 fun btnClicked(btnSign: String):Problem{
 
@@ -268,7 +263,6 @@ fun btnClicked(btnSign: String):Problem{
         Log.d("TAG", "Togri")
     }else{
         Log.d("TAG", "Xato")
-
     }
 
     var problem = Logic().random(10)
